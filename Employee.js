@@ -7,7 +7,10 @@ function Employee(prop){
         <h1>Emp No:{prop.eno}</h1>
         <h1>Emp name:{prop.ename}</h1>
         <h1>Salary:{prop.salary}</h1> 
-        <button onClick={prop.click}>Delete</button>
+        <button onClick={prop.click}>Delete</button>&nbsp;&nbsp;
+        <button onClick={prop.incrclick}>Incr</button>&nbsp;&nbsp;
+        <button onClick={prop.decrclick}>Decr</button>
+        
       </div> 
      )
 }

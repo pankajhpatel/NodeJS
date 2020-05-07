@@ -8,30 +8,65 @@ import Employee from './components/Product/Employee'
 class App extends Component{
   state = {
     employees:[
-      {eno:'101', ename:'Allen Yang', salary:'25000'},
-      {eno:'102', ename:'Maria Kary', salary:'27000'},
-      {eno:'103', ename:'Kate Parry', salary:'28000'},
-      {eno:'104', ename:'Bob Nil', salary:'29,000'},
-      {eno:'105', ename:'Jhon Wills', salary:'24,000'},
-      
-    ]
+      {eno:101, ename:'Allen Yang', salary:'25000'},
+      {eno:102, ename:'Maria Kary', salary:'27000'},
+      {eno:103, ename:'Kate Parry', salary:'28000'},
+      {eno:104, ename:'Bob Nil', salary:'29,000'},
+      {eno:105, ename:'Jhon Wills', salary:'24,000'},
+    ],
+    shflag:true
+    
   }
-  deleteProductHandler(eindex){
+  deleteEmployeeHandler(eindex){
     let memps = this.state.employees;
     memps.splice(eindex,1);
     this.setState({employees:memps});
    // this.state.eemployees=memps;
     console.log("Employee deleted"+eindex);
-    
-
    }
+
+   incrEmployeeHandler(eindex){
+     let memps = this.state.employees;
+     console.log(eindex);
+     memps[eindex].eno +=  1;
+     this.setState({employees:memps});
+  }
+
+  decrEmployeeHandler(eindex){
+    let memps = this.state.employees;
+    console.log(eindex);
+    memps[eindex].eno -= 1;
+    this.setState({employees:memps});
+ }
+
+   showHideHandler=()=>{
+     this.setState({shflag:!this.state.shflag});  
+     console.log(this.state.shflag);
+   }
+
    render(){
-     return(<div>{
+     let cd=null;
+     let btntext="Show";
+     if(this.state.shflag)
+    {  cd=(<div>
+        {
          this.state.employees.map((emp,eindex)=>{
            return<Employee eno={emp.eno} ename={emp.ename} salary={emp.salary} 
-           click={()=>this.deleteProductHandler(eindex)} key={emp.ename}/>
+           click={()=>this.deleteEmployeeHandler(eindex)} 
+           incrclick={()=>this.incrEmployeeHandler(eindex)}
+           decrclick={()=>this.decrEmployeeHandler(eindex)}
+           key={emp.ename}/>
          })
        }
+
+      </div>)
+      btntext="Hide";
+   }
+     return(<div>
+          {cd}
+       <hr></hr>
+          <button onClick={this.showHideHandler}> {btntext} </button>
+          
        </div>
        )
    } 
