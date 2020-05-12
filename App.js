@@ -1,111 +1,105 @@
-import React, {Component} from 'react';
-//import logo from './logo.svg';
+import React, { Component } from 'react';
+import axios from 'axios';
 import './App.css';
-//import Product from './components/Product/Product'
-import Employee from './components/Product/Employee'
+import Todo from './components/Todo'
+import Post from './components/Post'
+import Album from './components/Album'
 
 
 class App extends Component{
-  state = {
-    employees:[
-      {eno:101, ename:'Allen Yang', salary:'25000'},
-      {eno:102, ename:'Maria Kary', salary:'27000'},
-      {eno:103, ename:'Kate Parry', salary:'28000'},
-      {eno:104, ename:'Bob Nil', salary:'29,000'},
-      {eno:105, ename:'Jhon Wills', salary:'24,000'},
-    ],
-    shflag:true
-    
+  state={
+    todos:[],posts:[],albums:[],
+    shflag:1
   }
-  deleteEmployeeHandler(eindex){
-    let memps = this.state.employees;
-    memps.splice(eindex,1);
-    this.setState({employees:memps});
-   // this.state.eemployees=memps;
-    console.log("Employee deleted"+eindex);
-   }
-
-   incrEmployeeHandler(eindex){
-     let memps = this.state.employees;
-     console.log(eindex);
-     memps[eindex].eno +=  1;
-     this.setState({employees:memps});
+  componentDidMount(){
+    axios.get('https://jsonplaceholder.typicode.com/todos')
+    .then((res)=>{
+      console.log(res.data);
+      this.setState({todos:res.data})
+    })
+    axios.get('https://jsonplaceholder.typicode.com/posts')
+    .then((res)=>{
+      console.log(res.data);
+      this.setState({posts:res.data})
+    })
+    axios.get('https://jsonplaceholder.typicode.com/albums')
+    .then((res)=>{
+      console.log(res.data);
+      this.setState({albums:res.data})
+    })
+  }
+  showTodoHandler=()=>{
+    this.setState({shflag:1});  
+    console.log(this.state.shflag);
   }
 
-  decrEmployeeHandler(eindex){
-    let memps = this.state.employees;
-    console.log(eindex);
-    memps[eindex].eno -= 1;
-    this.setState({employees:memps});
- }
-
-   showHideHandler=()=>{
-     this.setState({shflag:!this.state.shflag});  
-     console.log(this.state.shflag);
-   }
-
-   render(){
-     let cd=null;
-     let btntext="Show";
-     if(this.state.shflag)
-    {  cd=(<div>
-        {
-         this.state.employees.map((emp,eindex)=>{
-           return<Employee eno={emp.eno} ename={emp.ename} salary={emp.salary} 
-           click={()=>this.deleteEmployeeHandler(eindex)} 
-           incrclick={()=>this.incrEmployeeHandler(eindex)}
-           decrclick={()=>this.decrEmployeeHandler(eindex)}
-           key={emp.ename}/>
-         })
-       }
-
-      </div>)
-      btntext="Hide";
-   }
-     return(<div>
-          {cd}
-       <hr></hr>
-          <button onClick={this.showHideHandler}> {btntext} </button>
-          
-       </div>
-       )
-   } 
-}
-
-/*
-class App extends Component{
-    
-  state  = {
-    products: [
-      {pname:'Banana', price:'30'},
-      {pname:'Orange',price:'40'},
-      {pname:'Mango',price:'40'}
-    ]
+  showPostHandler=()=>{
+    this.setState({shflag:2});  
+    console.log(this.state.shflag);
   }
+  showAlbumHandler=()=>{
+    this.setState({shflag:3});  
+    console.log(this.state.shflag);
+  }
+
+  
   render(){
-    return(<div>{
-        this.state.products.map((prod)=>{
-          return<Product pname={prod.pname}
-                         price={prod.price}/>
-        }
-        )
-        }
-       </div>
-   
-    )
+    let cd=null;
+   if(this.state.shflag===1)
+   {  cd=(<div>
+       {
+        this.state.todos.map((todo,eindex)=>{
+          return<Todo id={todo.id} uid={todo.uid} title={todo.title} status={todo.state}
+          key={todo.id}/>
+        })
+      }
+     </div>)
+  }else if(this.state.shflag===2)
+  {
+    cd=(<div>
+      {
+       this.state.posts.map((pst,eindex)=>{
+         return<Post id={pst.id} uid={pst.uid} title={pst.title} body={pst.body}
+         key={pst.id}/>
+       })
+     }
+    </div>)
+  }else if(this.state.shflag===3)
+  {
+    cd=(<div>
+      {
+       this.state.albums.map((albm,eindex)=>{
+         return<Album id={albm.id} uid={albm.uid} title={albm.title} 
+         key={albm.id}/>
+       })
+     }
+    </div>)
   }
-
+    return(<div>
+         <hr></hr>
+         <button onClick={this.showTodoHandler}> Show Todo </button> &nbsp;&nbsp;&nbsp;
+         <button onClick={this.showAlbumHandler}> Show Album </button> &nbsp;&nbsp;&nbsp;
+         <button onClick={this.showPostHandler}> Show Post </button> &nbsp;&nbsp;&nbsp;
+         {cd}
+         </div>
+      )
+  } 
+  /*render(){
+    return (
+      <div className="App">
+      {
+         this.state.todos.map(td=>{
+         return(
+          <div>
+            <h1>id:{td.id}</h1>
+            <h2>title:{td.title}</h2>
+          </div>
+         )
+        })
+      }
+      </div>
+    )
+  }*/
 }
-*/
 
-/*
-function App() {
-  return (
-    <div> 
-    <Product pname="Apple" price= "30"/>
-    <Product pname="Orange" price = "60"/>
-    </div>
-  );
-}
-*/
 export default App;
