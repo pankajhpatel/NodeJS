@@ -1,0 +1,10 @@
+.displaycounter{
+    width: 100%;
+    background-color: darkgray;
+    color:white;
+    text-align:center;
+    padding:20px;
+    font-size: 30px;
+    box-sizing: border-box;
+
+}
