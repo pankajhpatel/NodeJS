@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 import DisplayCounter from  '../components/DisplayCounter/DisplayCounter'
 import ChangeCounter from '../components/ChangeCounter/ChangeCounter'
 import {connect} from 'react-redux';
+import * as actionTypes from '../store/actions';
 
 class MainPage extends Component{
     state={
@@ -32,7 +33,16 @@ class MainPage extends Component{
                <ChangeCounter click={this.props.onIncrementCounter} caption="Increment"/>
                <ChangeCounter click={this.props.onDecrementCounter}caption="Decrement"/>
                <ChangeCounter click={this.props.onAddCounter} caption="ADD 5"/>
-               <ChangeCounter click={this.props.onSubCounter}caption="SUB 5"/> 
+               <ChangeCounter click={this.props.onSubCounter}caption="SUB 5"/>
+               <hr></hr>
+               <button onClick={this.props.onAddSquare}>Square and Store</button>
+               <ul>
+                   {
+                       this.props.storedResults.map((sqr,index)=>
+                        (<li key={index}onClick={()=>this.props.onDeleteSquare(index)}>{sqr}</li>)
+                        )
+                   }
+               </ul>
             </div>
         )
     }
@@ -40,16 +50,19 @@ class MainPage extends Component{
 }
 const mapStateToProps = state=>{
     return{
-        ctr:state.counter
-    }
+        ctr:state.counter, 
+        storedResults:state.results
+        }
 
 }
 const mapDispatchToProps = dispatch =>{
     return{
-        onIncrementCounter:()=>dispatch({type:'INC' }),
-        onDecrementCounter:()=>dispatch({type:'DEC' }),
-        onAddCounter:()=>dispatch({type:'ADD', value:5}),
-        onSubCounter:()=>dispatch({type:'SUB', value:5})
+        onIncrementCounter:()=>dispatch({type:actionTypes.INCR }),
+        onDecrementCounter:()=>dispatch({type:actionTypes.DECR }),
+        onAddCounter:()=>dispatch({type:actionTypes.ADD, value:5}),
+        onSubCounter:()=>dispatch({type:actionTypes.SUB, value:5}),
+        onAddSquare:()=>dispatch({type:actionTypes.ADD_SQUARE}),
+        onDeleteSquare:(i)=>dispatch({type:actionTypes.DELETE_SQUARE,value:i})
     }
 }
 
