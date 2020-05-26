@@ -35,7 +35,7 @@ class MainPage extends Component{
                <ChangeCounter click={this.props.onAddCounter} caption="ADD 5"/>
                <ChangeCounter click={this.props.onSubCounter}caption="SUB 5"/>
                <hr></hr>
-               <button onClick={this.props.onAddSquare}>Square and Store</button>
+               <button onClick={()=>this.props.onAddSquare(this.props.ctr)}>Square and Store</button>
                <ul>
                    {
                        this.props.storedResults.map((sqr,index)=>
@@ -50,8 +50,8 @@ class MainPage extends Component{
 }
 const mapStateToProps = state=>{
     return{
-        ctr:state.counter, 
-        storedResults:state.results
+        ctr:state.ctr.counter, 
+        storedResults:state.msqr.results
         }
 
 }
@@ -61,7 +61,7 @@ const mapDispatchToProps = dispatch =>{
         onDecrementCounter:()=>dispatch({type:actionTypes.DECR }),
         onAddCounter:()=>dispatch({type:actionTypes.ADD, value:5}),
         onSubCounter:()=>dispatch({type:actionTypes.SUB, value:5}),
-        onAddSquare:()=>dispatch({type:actionTypes.ADD_SQUARE}),
+        onAddSquare:(counter)=>dispatch({type:actionTypes.ADD_SQUARE,value:counter}),
         onDeleteSquare:(i)=>dispatch({type:actionTypes.DELETE_SQUARE,value:i})
     }
 }
