@@ -2,7 +2,7 @@ import React,{Component} from 'react';
 import DisplayCounter from  '../components/DisplayCounter/DisplayCounter'
 import ChangeCounter from '../components/ChangeCounter/ChangeCounter'
 import {connect} from 'react-redux';
-import * as actionTypes from '../store/actions';
+import * as actionCreators from '../store/actions';
 
 class MainPage extends Component{
     state={
@@ -57,12 +57,12 @@ const mapStateToProps = state=>{
 }
 const mapDispatchToProps = dispatch =>{
     return{
-        onIncrementCounter:()=>dispatch({type:actionTypes.INCR }),
-        onDecrementCounter:()=>dispatch({type:actionTypes.DECR }),
-        onAddCounter:()=>dispatch({type:actionTypes.ADD, value:5}),
-        onSubCounter:()=>dispatch({type:actionTypes.SUB, value:5}),
-        onAddSquare:(counter)=>dispatch({type:actionTypes.ADD_SQUARE,value:counter}),
-        onDeleteSquare:(i)=>dispatch({type:actionTypes.DELETE_SQUARE,value:i})
+        onIncrementCounter:()=>dispatch(actionCreators.increment()),
+        onDecrementCounter:()=>dispatch(actionCreators.decrement()),
+        onAddCounter:()=>dispatch(actionCreators.addition()),
+        onSubCounter:()=>dispatch(actionCreators.subtraction()),
+        onAddSquare:(counter)=>dispatch(actionCreators.addsquare(counter)),
+        onDeleteSquare:(i)=>dispatch(actionCreators.deletesquare(i))
     }
 }
 
