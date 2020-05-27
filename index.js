@@ -1,19 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import {createStore, combineReducers} from 'redux';
+import {createStore, combineReducers, applyMiddleware} from 'redux';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import counterReducer from './store/reducers/counter'
 import squareReducer from './store/reducers/square'
 import {Provider} from 'react-redux';
+import thunk from 'redux-thunk';
 
 const rootReducer = combineReducers({
   ctr:counterReducer,
   msqr:squareReducer
 }) 
 
-const store=createStore(rootReducer);
+const store=createStore(rootReducer,applyMiddleware(thunk));
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}><App /> </Provider>
