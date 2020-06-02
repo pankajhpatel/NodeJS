@@ -1,0 +1,21 @@
+.ulsquare{
+
+    list-style-type: square;
+    background-color: aqua;
+   }
+.ulfactorial{
+    list-style-type: circle;
+    background-color:yellow
+}
+.ulsqrdiv{
+    width: 30%;
+    float: left;
+    align-content: center;
+    background-color: thistle;
+}
+.ulfactdiv{
+    width: 30%;
+    float: right;
+    align-content: center;
+    background-color: yellowgreen;
+}
