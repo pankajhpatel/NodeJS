@@ -4,6 +4,8 @@ export const ADD='ADD';
 export const SUB='SUB';
 export const ADD_SQUARE='ADD_SQUARE';
 export const DELETE_SQUARE='DELETE_SQUARE';
+export const ADD_FACTORIAL='ADD_FACTORIAL';
+export const DELETE_FACTORIAL='DELETE_FACTORIAL';
 
 export const increment = () => {
     return{
@@ -29,6 +31,9 @@ export const subtraction = () => {
         type:SUB,value:5
     }
 }
+
+
+
 export const saveSquare = (i)=>{
     return{
         type: ADD_SQUARE,
@@ -51,3 +56,18 @@ export const deletesquare = (i)=>{
         value: i
     }
 }
+
+export const addFactorial = (i)=>{
+    return{
+        type: ADD_FACTORIAL,
+        value: i
+    }
+}
+
+export const deleteFactorial = (i)=>{
+    return{
+        type: DELETE_FACTORIAL,
+        value: i
+    }
+}
+
